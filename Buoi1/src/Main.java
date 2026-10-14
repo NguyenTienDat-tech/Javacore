@@ -1,4 +1,5 @@
 import controller.OrderController;
+import repository.OrderRepository;
 import service.OrderService;
 import view.OrderView;
 
@@ -30,10 +31,18 @@ Tổng thanh toán: 270000 VND
 public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
+            OrderRepository repository = new OrderRepository();
+
+
             OrderView view = new OrderView(scanner);
-            OrderService service = new OrderService();
+            OrderService service = new OrderService(repository);
+
+
             OrderController controller = new OrderController(view, service);
             controller.run();
+
+
+            controller.showHistory();
         }
     }
 }

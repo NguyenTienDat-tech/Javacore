@@ -1,6 +1,8 @@
 package controller;
 
-import model.OrderModel;
+import dto.request.CreateOrderRequest;
+import dto.response.CreateOrderResponse;
+import exception.ValidationException;
 import service.OrderService;
 import view.OrderView;
 
@@ -14,18 +16,18 @@ public class OrderController {
     }
 
     public void run() {
-        OrderModel orderModel = view.inputOrder();
+        try {
+            CreateOrderRequest request = view.inputOrder();
+            CreateOrderResponse response = service.createOrder(request);
 
-        if (!service.hopLe(orderModel)) {
-            view.showError("Đơn giá và số lượng phải lớn hơn 0.");
-            return;
+            view.showInvoice(response);
         }
+        catch (ValidationException e) {
+            view.showError(e.getMessage());
+        }
+    }
 
-        long tongPhu = service.tinhTongPhu(orderModel);
-        long phiVanChuyen = service.tinhPhiVanChuyen(tongPhu);
-        long tong = service.tinhTong(tongPhu, phiVanChuyen);
-
-
-        view.showInvoice(orderModel, tongPhu, phiVanChuyen, tong);
+    public void showHistory() {
+        view.showOrderHistory(service.getAllOrders());
     }
 }
