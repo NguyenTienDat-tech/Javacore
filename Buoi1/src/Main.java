@@ -40,9 +40,6 @@ public class Main {
 
             OrderController controller = new OrderController(view, service);
             controller.run();
-
-
-            controller.showHistory();
         }
     }
 }

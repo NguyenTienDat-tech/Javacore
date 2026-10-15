@@ -17,7 +17,7 @@ public class OrderView {
         this.scanner = scanner;
     }
 
-    public CreateOrderRequest inputOrder() {
+    public CreateOrderRequest   inputOrder() {
         System.out.print("Nhập tên sản phẩm: ");
         String productName = scanner.nextLine();
 
@@ -98,6 +98,18 @@ public class OrderView {
         for (CreateOrderResponse order : orders) {
             showInvoice(order);
         }
+    }
+
+
+    public String inputMenu() {
+        System.out.println();
+        System.out.println("========== SHOPMINI ==========");
+        System.out.println("1. Tạo đơn hàng");
+        System.out.println("2. Xem lịch sử hóa đơn");
+        System.out.println("0. Thoát");
+        System.out.print("Chọn chức năng: ");
+
+        return scanner.nextLine().trim();
     }
 
 }
